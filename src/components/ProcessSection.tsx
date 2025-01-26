@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useParallax } from "react-scroll-parallax";
 import {
   ChatBubbleBottomCenterTextIcon,
   ClipboardDocumentCheckIcon,
@@ -35,9 +36,24 @@ const processSteps = [
 ];
 
 export default function ProcessSection() {
+  const parallax = useParallax<HTMLDivElement>({
+    speed: -5,
+  });
+
+  const stepsParallax = useParallax<HTMLDivElement>({
+    translateY: [0, 20],
+    scale: [1, 1.1],
+    easing: "easeInQuad",
+  });
+
   return (
-    <section className="py-24 relative bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="py-24 relative overflow-hidden">
+      <div
+        ref={parallax.ref}
+        className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white"
+      />
+
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -51,7 +67,10 @@ export default function ProcessSection() {
           <h2 className="text-4xl font-bold mb-6">Working Easy Process</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div
+          ref={stepsParallax.ref}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
           {processSteps.map((step, index) => (
             <motion.div
               key={step.number}

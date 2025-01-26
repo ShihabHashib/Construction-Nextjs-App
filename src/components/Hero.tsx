@@ -35,6 +35,28 @@ export default function Hero() {
     }),
   };
 
+  const containerAnimation = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemAnimation = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <section className="relative h-screen flex items-center">
       {/* Dark overlay */}
@@ -55,12 +77,23 @@ export default function Hero() {
       />
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-20 text-white">
+      <motion.div
+        className="container mx-auto px-4 relative z-20 text-white"
+        initial="hidden"
+        animate="visible"
+        variants={containerAnimation}
+      >
         <div className="max-w-3xl">
-          <div className="text-orange-500 font-medium mb-4">
+          <motion.div
+            className="text-orange-500 font-medium mb-4"
+            variants={itemAnimation}
+          >
             Building Excellence Since 1995
-          </div>
-          <h1 className="text-5xl sm:text-7xl font-bold mb-6 leading-tight tracking-wide">
+          </motion.div>
+          <motion.h1
+            className="text-5xl sm:text-7xl font-bold mb-6 leading-tight tracking-wide"
+            variants={itemAnimation}
+          >
             BUILDING THE
             <br />
             FUTURE WITH
@@ -88,22 +121,25 @@ export default function Hero() {
                 </motion.span>
               </AnimatePresence>
             </span>
-          </h1>
-          <p className="text-lg mb-8 text-gray-200 max-w-xl font-light">
+          </motion.h1>
+          <motion.p
+            className="text-lg mb-8 text-gray-200 max-w-xl font-light"
+            variants={itemAnimation}
+          >
             Transforming visions into reality with innovative construction
             solutions. Delivering exceptional quality and reliability in every
             project.
-          </p>
-          <div className="flex flex-wrap gap-4">
+          </motion.p>
+          <motion.div className="flex flex-wrap gap-4" variants={itemAnimation}>
             <Link
               href="/portfolio"
-              className="border border-white bg-transparent hover:bg-white text-white hover:text-black px-12 py-4 rounded-none transition-all duration-300 font-semibold hover:-translate-y-0.5 hover:shadow-xl text-lg tracking-wide"
+              className="border border-white bg-transparent hover:bg-white text-white hover:text-black px-12 py-4 transition-all duration-300 font-semibold hover:-translate-y-0.5 hover:shadow-xl text-lg tracking-wide"
             >
               Our Projects
             </Link>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
